@@ -781,8 +781,8 @@ class FromDisk(DockerImage):
     """Override."""
     if digest not in self._layer_to_filename:
       return self._legacy_base.blob(digest)
-    with open(self._layer_to_filename[digest], 'rb') as reader:
-      return reader.read()
+    # Might want to ensure this is closed.
+    return open(self._layer_to_filename[digest], 'rb')
 
   def blob_size(self, digest):
     """Override."""
